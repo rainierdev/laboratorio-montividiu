@@ -182,6 +182,7 @@ function initTour(tour) {
   }
 
   function onScroll() {
+    maybeLoad();
     const p = progress();
     target = p * END;
     fill.style.transform = 'scaleX(' + p + ')';
@@ -194,21 +195,44 @@ function initTour(tour) {
 
   // Baixa o vídeo inteiro só quando a seção se aproxima (economiza dados no celular).
   // Como blob local, avançar/voltar no vídeo fica instantâneo.
-  const io = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
-    io.disconnect();
+  function loadVideo(src) {
+    video.preload = 'auto'; // sem isso o Safari do iPhone não baixa nada (o HTML vem com preload="none")
+    video.src = src;
+    video.load();
+  }
+  let requested = false;
+  function maybeLoad() {
+    if (requested || tour.getBoundingClientRect().top > window.innerHeight * 2.5) return;
+    requested = true;
     const src = video.getAttribute('src');
     fetch(src)
       .then((r) => r.blob())
-      .then((blob) => { video.src = URL.createObjectURL(blob); })
-      .catch(() => { video.preload = 'auto'; video.load(); });
-  }, { rootMargin: '150% 0px' });
-  io.observe(tour);
+      .then((blob) => {
+        // Se o navegador não abrir o blob (versões antigas do Safari), usa o arquivo direto
+        video.addEventListener('error', () => loadVideo(src), { once: true });
+        loadVideo(URL.createObjectURL(blob));
+      })
+      .catch(() => loadVideo(src));
+  }
 
-  video.addEventListener('loadeddata', () => {
-    // iOS só desenha quadros depois de um play; o vídeo é mudo, então é permitido
-    video.play().then(() => { video.pause(); seek(); }).catch(seek);
-  });
+  // O Safari do iPhone só carrega e desenha os quadros depois de um play. Como o vídeo é mudo,
+  // o play automático costuma ser permitido; no Modo de Pouca Energia não é, e aí um toque
+  // na tela (ou no botão sobre o vídeo) libera.
+  const unlockBtn = $('.tour-unlock', tour);
+  let unlocked = false;
+  function unlock() {
+    if (unlocked || video.preload !== 'auto') return;
+    video.muted = true;
+    const playing = video.play();
+    if (!playing) return;
+    playing
+      .then(() => { video.pause(); unlocked = true; unlockBtn.hidden = true; seek(); })
+      .catch(() => { if (video.preload === 'auto') unlockBtn.hidden = false; });
+  }
+  video.addEventListener('loadedmetadata', unlock);
+  video.addEventListener('loadeddata', () => { unlock(); seek(); });
+  unlockBtn.addEventListener('click', unlock);
+  ['touchend', 'click'].forEach((type) => document.addEventListener(type, unlock, { passive: true }));
   video.addEventListener('seeked', seek);
 
   window.addEventListener('scroll', onScroll, { passive: true });
