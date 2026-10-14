@@ -257,7 +257,7 @@
 <script src="js/main.js"></script>
 <div class="demo-toast" id="demoToast" role="status" aria-live="polite" hidden></div>
 <script>
-// Demonstração: nada é enviado ao laboratório. WhatsApp e ligação só mostram um aviso.
+// Demonstração: o botão do WhatsApp funciona de verdade; a ligação ainda só mostra um aviso.
 (function () {
   const toast = document.getElementById('demoToast');
   let timer;
@@ -271,10 +271,7 @@
     const link = e.target.closest('a');
     if (!link) return;
     const href = link.getAttribute('href') || '';
-    if (link.id === 'sendBtn' || href.includes('wa.me')) {
-      e.preventDefault();
-      show('Na versão final, este botão abre o WhatsApp do laboratório com a mensagem pronta.');
-    } else if (href.startsWith('tel:')) {
+    if (href.startsWith('tel:')) {
       e.preventDefault();
       show('Na versão final, este botão liga para o laboratório: (64) 3404-9442.');
     }
