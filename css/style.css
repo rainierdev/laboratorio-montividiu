@@ -160,6 +160,7 @@ legend.q{margin-bottom:10px}
 .grid-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;list-style:none;margin:0;padding:0}
 .step{border:0;box-shadow:0 6px 0 var(--sand),0 14px 28px rgba(35,24,21,.08)}
 .step h3{font-size:20px}
+.card>.coin{color:#fff}
 .coin{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FF5A5A 0%,var(--red) 55%,#7A0000 100%);color:#fff;font-family:var(--font-display);font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 var(--red-deep),0 12px 20px rgba(110,0,0,.3);text-shadow:0 2px 0 rgba(0,0,0,.25)}
 .notice{background:#FFF7EC;border:1px solid #F1DDBE;border-radius:20px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 4px 0 #F1DDBE}
 .notice svg{flex-shrink:0;margin-top:2px}
