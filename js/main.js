@@ -165,7 +165,7 @@ const tour = $('#tour');
 if (tour) initTour(tour);
 
 function initTour(tour) {
-  const END = 35.4; // para antes da tela final do Instagram (vídeo tem 37,6 s)
+  const END = 33.0; // para antes da tela final do Instagram (escurece a partir de 33,3 s; vídeo tem 37,6 s)
   const EASE = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 0.18;
   const video = $('.tour-video', tour);
   const sticky = $('.tour-sticky', tour);
