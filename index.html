@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/logo.png">
+<title>Proposta Laboratório Montividiu</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#D10000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Versão de demonstração: o site usa um visual claro único, como no original */
+  :root{color-scheme:light;--demo-bg:#231815;--demo-fg:#FAF4E6;--demo-tag:#F2E6C7}
+  body{background:#fff}
+  .site-header{top:env(safe-area-inset-top,0px)}
+  .demo-banner{background:var(--demo-bg);color:var(--demo-fg);font-size:13px;line-height:1.35;padding:8px 16px;text-align:center}
+  .demo-banner strong{color:var(--demo-tag)}
+  .demo-toast{position:fixed;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;width:min(92vw,440px);background:var(--demo-bg);color:var(--demo-fg);font-size:15px;line-height:1.4;padding:14px 18px;border-radius:16px;box-shadow:0 18px 40px rgba(35,24,21,.35);text-align:center}
+  
+  .demo-pill{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;background:var(--demo-bg);color:var(--demo-tag);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;box-shadow:0 6px 16px rgba(35,24,21,.3);pointer-events:none}
+</style>
+</head>
+<body>
+
+<p class="demo-banner"><strong>Proposta de site para o Laboratório Montividiu.</strong> Versão de demonstração, não é o site oficial.</p>
+<span class="demo-pill" aria-hidden="true">Demonstração · não é o site oficial</span>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#topo" class="logo-link"><img src="assets/logo.png" alt="Laboratório Montividiu - Análises e Pesquisas Clínicas" class="logo"></a>
+    <nav aria-label="Principal" class="nav">
+      <a class="nav-link" href="#exames">Exames</a>
+      <a class="nav-link" href="#tour">O laboratório</a>
+      <a class="nav-link" href="#como-funciona">Como funciona</a>
+      <a class="nav-link" href="#contato">Contato</a>
+      <a class="btn btn-red btn-sm" href="#agendar">Agendar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="topo" class="hero">
+    <div class="hero-arc" aria-hidden="true"></div>
+    <div class="bubble bubble-blue float" style="top:18%;left:4%;width:46px;height:46px" aria-hidden="true"></div>
+    <div class="bubble bubble-blue float-slow" style="bottom:12%;left:42%;width:26px;height:26px" aria-hidden="true"></div>
+    <div class="bubble bubble-red float-slow" style="top:14%;right:5%;width:64px;height:64px" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="badge-brown"><span data-anos>26</span> anos de tradição em Montividiu</span>
+        <h1 class="hero-title">Seus exames <span class="text-red">na sua cidade</span>, com resultado em que você confia.</h1>
+        <p class="hero-lead">Do hemograma aos exames hormonais, de alergia e genéticos. Atendimento próximo, coleta em casa para pacientes com comorbidades e agendamento em menos de um minuto.</p>
+        <div class="insurance">
+          <span class="insurance-title" id="conv-title">Particular e convênios</span>
+          <ul class="insurance-list" aria-labelledby="conv-title">
+            <li>SUS</li><li>Unimed</li><li>Hapvida</li><li>São Francisco</li><li>Pax Montividiu</li>
+          </ul>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-red btn-lg" href="#agendar">Agendar meu exame
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-white btn-lg" href="#exames">Ver exames</a>
+        </div>
+      </div>
+
+      <div class="tilt-wrap">
+        <div class="tilt-card">
+          <img src="assets/fachada.jpg" alt="Fachada do Laboratório Montividiu" class="hero-photo">
+        </div>
+        <div class="floating-card float">
+          <span class="icon-tile icon-tile-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>
+          <div>
+            <strong>Coletamos na sua casa</strong>
+            <span>Atendimento domiciliar para pacientes com comorbidades.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDAMENTO -->
+  <section id="agendar" class="section container">
+    <div class="booking-grid">
+      <div class="booking-intro">
+        <span class="kicker">Agendamento rápido</span>
+        <h2 class="section-title">Responda 3 perguntas e fale com a gente no WhatsApp</h2>
+        <p class="muted">Sua mensagem já chega pronta para a nossa equipe. Assim a gente responde mais rápido, com o preparo e o melhor horário para você.</p>
+        <div class="preview">
+          <span class="preview-label">Prévia da sua mensagem</span>
+          <p class="preview-bubble" id="preview"></p>
+        </div>
+      </div>
+
+      <form class="booking-card" id="booking" novalidate>
+        <div class="progress-head">
+          <span class="progress-label" id="progressLabel">Pergunta 1 de 3</span>
+          <span class="progress-hint" id="progressHint">Leva menos de 1 minuto</span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" aria-label="Perguntas respondidas" id="progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="field">
+          <label for="nome" class="q"><span class="q-num" data-step="0">1</span>Qual é o seu nome?</label>
+          <input class="input" id="nome" type="text" placeholder="Digite seu nome" autocomplete="name">
+        </div>
+
+        <fieldset class="field">
+          <legend class="q"><span class="q-num" data-step="1">2</span>O que você precisa?</legend>
+          <div class="chips" data-group="need">
+            <button type="button" class="chip" aria-pressed="false" data-value="Tenho pedido médico"><span class="dot"></span>Tenho pedido médico</button>
+            <button type="button" class="chip" aria-pressed="false" data-value="Check-up"><span class="dot"></span>Check-up</button>
+            <button type="button" class="chip" aria-pressed="false" data-value="Exame de gravidez"><span class="dot"></span>Exame de gravidez</button>
+            <button type="button" class="chip" aria-pressed="false" data-value="Teste do pezinho"><span class="dot"></span>Teste do pezinho</button>
+            <button type="button" class="chip" aria-pressed="false" data-value="Exame de alergia"><span class="dot"></span>Exame de alergia</button>
+            <button type="button" class="chip" aria-pressed="false" data-value="Outro exame"><span class="dot"></span>Outro exame</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="q"><span class="q-num" data-step="2">3</span>Onde prefere fazer a coleta?</legend>
+          <div class="places" data-group="place">
+            <button type="button" class="chip place" aria-pressed="false" data-value="No laboratório">No laboratório<small>Venho até vocês</small></button>
+            <button type="button" class="chip place" aria-pressed="false" data-value="Em casa">Em casa<small>Para pacientes com comorbidades</small></button>
+          </div>
+        </fieldset>
+
+        <div class="send">
+          <a class="btn btn-red btn-block" id="sendBtn" href="#" target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            <span id="sendLabel">Enviar pelo WhatsApp (0/3)</span>
+          </a>
+          <span class="small-note">Abre o WhatsApp com a mensagem pronta. É só tocar em enviar.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- EXAMES -->
+  <section id="exames" class="band band-light">
+    <div class="section container">
+      <div class="section-head">
+        <h2 class="section-title">Exames que realizamos</h2>
+        <p class="muted">São centenas de exames. Estes são os mais procurados. Toque em um para já começar o agendamento.</p>
+      </div>
+      <div class="grid-cards">
+        <a class="card card3d" href="#agendar" data-need="Check-up"><span class="card-num">01</span><strong>Exames de rotina</strong><span>Hemograma, glicemia, colesterol, triglicérides, urina e fezes.</span><em>Agendar este exame →</em></a>
+        <a class="card card3d" href="#agendar" data-need="Outro exame"><span class="card-num">02</span><strong>Tireoide e hormônios</strong><span>TSH, T4 livre, testosterona, estradiol, progesterona e mais.</span><em>Agendar este exame →</em></a>
+        <a class="card card3d" href="#agendar" data-need="Check-up"><span class="card-num">03</span><strong>Vitaminas e minerais</strong><span>Vitamina D, B12, ferro, ferritina, ácido fólico e outros.</span><em>Agendar este exame →</em></a>
+        <a class="card card3d" href="#agendar" data-need="Exame de gravidez"><span class="card-num">04</span><strong>Gestantes e bebês</strong><span>Beta HCG, sexagem fetal, pré-natal e teste do pezinho.</span><em>Agendar este exame →</em></a>
+        <a class="card card3d" href="#agendar" data-need="Exame de alergia"><span class="card-num">05</span><strong>Alergias e intolerâncias</strong><span>Testes para alimentos, ácaros, animais e intolerância à lactose.</span><em>Agendar este exame →</em></a>
+        <a class="card card3d" href="#agendar" data-need="Outro exame"><span class="card-num">06</span><strong>Paternidade e genéticos</strong><span>Investigação de paternidade e exames genéticos especializados.</span><em>Agendar este exame →</em></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="section container">
+    <h2 class="section-title">Por que fazer seus exames com a gente</h2>
+    <div class="grid-features">
+      <div class="card card3d"><span class="icon-tile"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span><h3><span data-anos>26</span> anos de tradição</h3><p>Na sua cidade, sem estrada e sem perder o dia de trabalho.</p></div>
+      <div class="card card3d"><span class="icon-tile"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><h3>Coleta em casa</h3><p>Para pacientes com comorbidades, nossa equipe vai até você, com o mesmo cuidado do laboratório.</p></div>
+      <div class="card card3d"><span class="icon-tile"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/></svg></span><h3>Centenas de exames</h3><p>Da rotina aos exames hormonais, de alergia e genéticos.</p></div>
+      <div class="card card3d"><span class="icon-tile"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></span><h3>Atendimento rápido</h3><p>Tire dúvidas e agende direto pelo WhatsApp, sem fila no telefone.</p></div>
+    </div>
+    <figure class="team-photo">
+      <img src="assets/equipe.webp" alt="Equipe do Laboratório Montividiu" width="1170" height="1551" loading="lazy">
+      <figcaption>A equipe que vai atender você.</figcaption>
+    </figure>
+  </section>
+
+  <!-- TOUR EM VÍDEO: o vídeo avança conforme a rolagem (js/main.js) -->
+  <section id="tour" class="tour" aria-labelledby="tour-title">
+    <div class="tour-sticky">
+      <div class="container tour-grid">
+        <div class="tour-copy">
+          <span class="kicker">Conheça o laboratório</span>
+          <h2 id="tour-title" class="section-title">Role a página e faça um tour com a gente</h2>
+          <ol class="tour-steps">
+            <li class="tour-step is-active" data-at="0"><span class="tour-num">01</span><div><strong>Fácil de chegar</strong><p>Na Rua Filogonio Faria Leão, com recepção confortável e atendimento sem pressa.</p></div></li>
+            <li class="tour-step" data-at="5"><span class="tour-num">02</span><div><strong>Coleta com cuidado</strong><p>Sala preparada e equipe treinada para deixar você tranquilo, de crianças a idosos.</p></div></li>
+            <li class="tour-step" data-at="13.5"><span class="tour-num">03</span><div><strong>Equipamentos modernos</strong><p>Análises em equipamentos automatizados, com mais precisão e agilidade no resultado.</p></div></li>
+            <li class="tour-step" data-at="23"><span class="tour-num">04</span><div><strong>Resultado conferido</strong><p>Cada laudo é revisado pela nossa equipe antes de chegar até você.</p></div></li>
+            <li class="tour-step" data-at="26.5"><span class="tour-num">05</span><div><strong>Gente que conhece você</strong><p><span data-anos>26</span> anos atendendo famílias de Montividiu, do teste do pezinho ao check-up.</p></div></li>
+          </ol>
+          <a class="btn btn-red btn-lg tour-cta" href="#agendar">Agendar meu exame</a>
+        </div>
+        <div class="tour-media">
+          <div class="tour-frame">
+            <video class="tour-video" src="assets/video.mp4" poster="assets/fachada.jpg" muted playsinline preload="none" controls aria-label="Vídeo: tour pelo Laboratório Montividiu"></video>
+            <span class="tour-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
+              Role para assistir
+            </span>
+            <span class="tour-bar" aria-hidden="true"><span class="tour-bar-fill"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="band band-cream">
+    <div class="section container">
+      <h2 class="section-title">Como funciona</h2>
+      <ol class="grid-steps">
+        <li class="card card3d step"><span class="coin">1</span><h3>Agende em segundos</h3><p>Responda as 3 perguntas e envie a mensagem. Se tiver pedido médico, mande a foto na conversa.</p></li>
+        <li class="card card3d step"><span class="coin">2</span><h3>Faça a coleta</h3><p>Venha até o laboratório ou, se você tem comorbidades, receba a nossa equipe em casa no horário combinado.</p></li>
+        <li class="card card3d step"><span class="coin">3</span><h3>Receba o resultado</h3><p>Avisamos quando estiver pronto. Retire no laboratório ou [FORMA DE ENTREGA DO RESULTADO].</p></li>
+      </ol>
+      <div class="notice">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A5A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+        <div><strong>Atenção ao preparo</strong><span>Alguns exames pedem jejum ou cuidados antes da coleta. A gente te orienta pelo WhatsApp antes de você vir.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="band band-dark">
+    <div class="section container contact-grid">
+      <div class="contact-info">
+        <h2 class="section-title">Estamos te esperando</h2>
+        <ul class="contact-list">
+          <li><strong>Endereço:</strong> Rua Filogonio Faria Leão, Montividiu - GO, 75915-000</li>
+          <li><strong>Horário:</strong> Segunda a sexta, das 07:00 às 17:00. Sábado e domingo, fechado.</li>
+          <li><a href="tel:+556434049442"><strong>Telefone e WhatsApp:</strong> (64) 3404-9442</a></li>
+          <li><strong>Convênios:</strong> SUS, Unimed, Hapvida, São Francisco e Pax Montividiu. Também atendemos particular.</li>
+        </ul>
+        <a class="btn btn-white btn-lg" href="#agendar">Agendar meu exame</a>
+      </div>
+      <a class="map-card card3d" href="https://maps.app.goo.gl/NmwCrMX9Fd8ob8Qj9" target="_blank" rel="noopener">
+        <img src="assets/fachada.jpg" alt="">
+        <span class="map-bar">
+          <span class="icon-tile icon-tile-round"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+          <span><strong>Como chegar</strong><small>Abrir rota no Google Maps</small></span>
+        </span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>Responsável técnico: [NOME] · [CONSELHO E Nº DE REGISTRO]</span>
+    <span>© <span id="year">2026</span> Laboratório Montividiu</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<div class="demo-toast" id="demoToast" role="status" aria-live="polite" hidden></div>
+<script>
+// Demonstração: nada é enviado ao laboratório. WhatsApp e ligação só mostram um aviso.
+(function () {
+  const toast = document.getElementById('demoToast');
+  let timer;
+  function show(text) {
+    toast.textContent = text;
+    toast.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(() => { toast.hidden = true; }, 4500);
+  }
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (link.id === 'sendBtn' || href.includes('wa.me')) {
+      e.preventDefault();
+      show('Na versão final, este botão abre o WhatsApp do laboratório com a mensagem pronta.');
+    } else if (href.startsWith('tel:')) {
+      e.preventDefault();
+      show('Na versão final, este botão liga para o laboratório: (64) 3404-9442.');
+    }
+  }, true);
+})();
+</script>
+
+
+</body>
+</html>
