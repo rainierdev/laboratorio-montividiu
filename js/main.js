@@ -91,6 +91,43 @@ const anos = hoje.getFullYear() - FUNDACAO.getFullYear()
   - (hoje < new Date(hoje.getFullYear(), FUNDACAO.getMonth(), FUNDACAO.getDate()) ? 1 : 0);
 $$('[data-anos]').forEach((el) => { el.textContent = anos; });
 
+// Links internos (#agendar, #exames...): rolagem suave até a seção, no celular e no computador.
+// Rápida em distâncias curtas, um pouco mais longa nas grandes; para se a pessoa rolar no meio.
+const SCROLL_OFFSET = 16;
+let scrollAnim = 0;
+function cancelScroll() { cancelAnimationFrame(scrollAnim); scrollAnim = 0; }
+function smoothScrollTo(el) {
+  cancelScroll();
+  const start = window.scrollY;
+  const end = Math.max(0, el.getBoundingClientRect().top + start - SCROLL_OFFSET);
+  const dist = end - start;
+  const duration = Math.min(1100, Math.max(450, Math.abs(dist) * 0.35));
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const t0 = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - t0) / duration);
+    window.scrollTo(0, start + dist * ease(t));
+    if (t < 1) scrollAnim = requestAnimationFrame(step);
+    else scrollAnim = 0;
+  }
+  scrollAnim = requestAnimationFrame(step);
+}
+['wheel', 'touchstart', 'keydown'].forEach((type) => window.addEventListener(type, cancelScroll, { passive: true }));
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link || e.defaultPrevented) return;
+  const id = link.getAttribute('href').slice(1);
+  const target = id && document.getElementById(id);
+  if (!target) return;
+  e.preventDefault();
+  smoothScrollTo(target);
+  history.pushState(null, '', '#' + id);
+  // Leva o foco do teclado junto, sem dar outro pulo
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+  target.focus({ preventScroll: true });
+});
+
 // Cabeçalho: vai esmaecendo nos primeiros pixels de rolagem e volta ao topo da página
 const header = $('.site-header');
 const HEADER_FADE_PX = 220;

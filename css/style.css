@@ -25,7 +25,8 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:16px}
+/* A rolagem suave dos links internos é feita em js/main.js (funciona igual em todo navegador) */
+html{scroll-padding-top:16px}
 body{margin:0;font-family:var(--font-body);color:var(--ink);background:#fff;line-height:1.5;overflow-x:hidden}
 img{max-width:100%;display:block}
 h1,h2{font-family:var(--font-display)}
@@ -246,7 +247,6 @@ legend.q{margin-bottom:10px}
   .tour-step p{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
   .float,.float-slow{animation:none}
   .tilt-card,.card3d,.btn,.chip,.tour-step{transition:none}
 }
