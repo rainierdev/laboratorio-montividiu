@@ -16,6 +16,8 @@ const progressFill = $('#progressFill');
 const progressLabel = $('#progressLabel');
 const progressHint = $('#progressHint');
 const stepMarks = $$('.q-num');
+const sendNote = $('#sendNote');
+const NOTE_DEFAULT = sendNote.textContent;
 
 function buildMessage() {
   const lines = ['Olá! Vim pelo site do Laboratório Montividiu e gostaria de agendar um exame.'];
@@ -60,6 +62,8 @@ function render() {
   sendBtn.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(message);
   sendLabel.textContent = ready ? 'Enviar pelo WhatsApp' : 'Enviar pelo WhatsApp (' + count + '/3)';
   sendBtn.classList.toggle('btn-green', ready);
+  sendBtn.setAttribute('aria-disabled', String(!ready));
+  if (ready) { sendNote.textContent = NOTE_DEFAULT; sendNote.classList.remove('is-error'); }
 }
 
 nameInput.addEventListener('input', (e) => { state.name = e.target.value; render(); });
@@ -76,6 +80,21 @@ $$('[data-group]').forEach((group) => {
 // Cards de exames: pré-selecionam a opção e levam ao formulário
 $$('[data-need]').forEach((card) => {
   card.addEventListener('click', () => { state.need = card.dataset.need; render(); });
+});
+
+// Só envia com as 3 perguntas respondidas; senão avisa o que falta e leva até a primeira pendente
+sendBtn.addEventListener('click', (e) => {
+  const missing = [
+    [state.name.trim().length > 1, 'seu nome', nameInput.closest('.field')],
+    [!!state.need, 'o que você precisa', $('[data-group="need"]').closest('.field')],
+    [!!state.place, 'onde fazer a coleta', $('[data-group="place"]').closest('.field')],
+  ].filter(([ok]) => !ok);
+  if (!missing.length) return;
+  e.preventDefault();
+  sendNote.textContent = 'Para enviar, falta responder: ' + missing.map(([, label]) => label).join(', ') + '.';
+  sendNote.classList.add('is-error');
+  smoothScrollTo(missing[0][2]);
+  if (missing[0][1] === 'seu nome') nameInput.focus({ preventScroll: true });
 });
 
 // Evita envio do <form> com Enter

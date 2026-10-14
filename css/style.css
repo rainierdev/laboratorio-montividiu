@@ -142,6 +142,8 @@ legend.q{margin-bottom:10px}
 .chip.place small{font-size:13px;font-weight:500;opacity:.85}
 .send{display:flex;flex-direction:column;gap:10px}
 .small-note{font-size:13px;color:var(--muted-2);text-align:center}
+.small-note.is-error{font-size:14px;font-weight:700;color:var(--red-text)}
+.btn[aria-disabled="true"]{opacity:.7}
 
 /* ---------- Cards ---------- */
 .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 0 var(--line),0 12px 24px rgba(35,24,21,.06)}
