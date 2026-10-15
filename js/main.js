@@ -158,11 +158,67 @@ function fadeHeader() {
 window.addEventListener('scroll', fadeHeader, { passive: true });
 fadeHeader();
 
+// Equipe: "troca de personagens". Uma pessoa em destaque com nome e função;
+// troca pelas setas, pelas miniaturas, pelas setas do teclado ou deslizando o dedo.
+const cast = $('#cast');
+if (cast) initCast(cast);
+
+function initCast(cast) {
+  const card = $('.cast-card', cast);
+  const img = $('.cast-img', cast);
+  const nameEl = $('.cast-name', cast);
+  const roleEl = $('.cast-role', cast);
+  const thumbs = $$('.cast-thumb', cast);
+  let index = 0;
+
+  function show(i, dir) {
+    i = (i + thumbs.length) % thumbs.length;
+    if (i === index) return;
+    index = i;
+    const t = thumbs[i];
+    thumbs.forEach((b, k) => { b.classList.toggle('is-active', k === i); b.setAttribute('aria-pressed', String(k === i)); });
+    const swap = () => { img.src = t.dataset.img; nameEl.textContent = t.dataset.name; roleEl.textContent = t.dataset.role; };
+    if (!card.animate) { swap(); return; }
+    // Sai para um lado e entra pelo outro, como trocar de personagem
+    card.animate([{ transform: 'none', opacity: 1 }, { transform: `translateX(${-dir * 60}px) rotate(${-dir * 4}deg)`, opacity: 0 }],
+      { duration: 160, easing: 'ease-in', fill: 'forwards' });
+    // Troca por timer (não depende do fim da animação, que pode não rodar com a aba em segundo plano)
+    setTimeout(() => {
+      swap();
+      card.getAnimations().forEach((a) => a.cancel());
+      card.animate([{ transform: `translateX(${dir * 60}px) rotate(${dir * 4}deg) scale(.96)`, opacity: 0 }, { transform: 'none', opacity: 1 }],
+        { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1.1)', fill: 'forwards' });
+    }, 160);
+  }
+
+  $('.cast-prev', cast).addEventListener('click', () => show(index - 1, -1));
+  $('.cast-next', cast).addEventListener('click', () => show(index + 1, 1));
+  thumbs.forEach((b, k) => b.addEventListener('click', () => show(k, k > index ? 1 : -1)));
+  cast.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') show(index + 1, 1);
+    if (e.key === 'ArrowLeft') show(index - 1, -1);
+  });
+
+  // Deslizar o dedo (ou arrastar o mouse) sobre a foto
+  let startX = null;
+  card.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+  card.addEventListener('pointerup', (e) => {
+    if (startX === null) return;
+    const dx = e.clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  });
+  card.addEventListener('pointercancel', () => { startX = null; });
+
+  // Pré-carrega as fotos para a troca ser instantânea
+  thumbs.forEach((b) => { const p = new Image(); p.src = b.dataset.img; });
+}
+
 // Tour em vídeo: o vídeo avança (e volta) conforme a pessoa rola a página.
 // O movimento só acontece quando a pessoa rola, então fica ativo mesmo com
 // prefers-reduced-motion (só sem a suavização). Sem JS, é um vídeo comum com controles.
 const tour = $('#tour');
-if (tour) initTour(tour);
+if (tour && !tour.hidden) initTour(tour); // escondido: não ativa nem baixa o vídeo
 
 function initTour(tour) {
   const END = 33.0; // para antes da tela final do Instagram (escurece a partir de 33,3 s; vídeo tem 37,6 s)

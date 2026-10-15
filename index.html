@@ -32,7 +32,7 @@
     <a href="#topo" class="logo-link"><img src="assets/logo.png" alt="Laboratório Montividiu - Análises e Pesquisas Clínicas" class="logo"></a>
     <nav aria-label="Principal" class="nav">
       <a class="nav-link" href="#exames">Exames</a>
-      <a class="nav-link" href="#tour">O laboratório</a>
+      <a class="nav-link" href="#tour" hidden>O laboratório</a>
       <a class="nav-link" href="#como-funciona">Como funciona</a>
       <a class="nav-link" href="#contato">Contato</a>
       <a class="btn btn-red btn-sm" href="#agendar">Agendar</a>
@@ -173,8 +173,9 @@
     </figure>
   </section>
 
-  <!-- TOUR EM VÍDEO: o vídeo avança conforme a rolagem (js/main.js) -->
-  <section id="tour" class="tour" aria-labelledby="tour-title">
+  <!-- TOUR EM VÍDEO: o vídeo avança conforme a rolagem (js/main.js).
+       ESCONDIDO POR ENQUANTO (pedido em 15/10/2026): para voltar, tire o "hidden" da section e do link "O laboratório" no menu. -->
+  <section id="tour" class="tour" aria-labelledby="tour-title" hidden>
     <div class="tour-sticky">
       <div class="container tour-grid">
         <div class="tour-copy">
