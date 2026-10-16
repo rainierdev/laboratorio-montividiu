@@ -1,8 +1,6 @@
 // Laboratório Montividiu — agendamento rápido via WhatsApp
 // Troque o número abaixo se o WhatsApp do laboratório for outro (DDI + DDD + número, só dígitos).
 const WHATSAPP = '556434049442';
-// Destino do botão "Como chegar" (endereço confirmado pela gerente em 16/10/2026)
-const DESTINO = 'Laboratório Montividiu, Rua Filogonio Faria Leão, Montividiu - GO, 75915-000';
 
 const state = { name: '', need: '', place: '' };
 
@@ -320,27 +318,4 @@ function initTour(tour) {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
-}
-
-// "Como chegar": abre o app de mapas que a pessoa já tem, sem mandar baixar outro.
-// iPhone → Apple Maps (vem instalado) já com a rota; Android → lista dos apps de mapa
-// instalados (Google Maps, Waze...); computador → Google Maps no navegador (link do HTML).
-const mapLink = $('.map-card');
-if (mapLink) {
-  mapLink.addEventListener('click', (e) => {
-    const ua = navigator.userAgent;
-    const iOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const android = /Android/i.test(ua);
-    if (!iOS && !android) return;
-    e.preventDefault();
-    const dest = encodeURIComponent(DESTINO);
-    if (iOS) {
-      location.href = 'https://maps.apple.com/?daddr=' + dest + '&dirflg=d';
-      return;
-    }
-    // Se nenhum app abrir (ex.: navegador interno do Instagram), cai no Google Maps pelo navegador
-    const fallback = setTimeout(() => { if (!document.hidden) location.href = mapLink.href; }, 1500);
-    document.addEventListener('visibilitychange', () => clearTimeout(fallback), { once: true });
-    location.href = 'geo:0,0?q=' + dest;
-  });
 }
