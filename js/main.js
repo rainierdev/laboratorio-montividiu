@@ -1,8 +1,8 @@
 // Laboratório Montividiu — agendamento rápido via WhatsApp
 // Troque o número abaixo se o WhatsApp do laboratório for outro (DDI + DDD + número, só dígitos).
 const WHATSAPP = '556434049442';
-// Destino do botão "Como chegar" (nome + endereço da ficha do laboratório no Google Maps)
-const DESTINO = 'Laboratório Montividiu, Av. Goiás, 355, Montividiu - GO, 75915-000';
+// Destino do botão "Como chegar" (endereço confirmado pela gerente em 16/10/2026)
+const DESTINO = 'Laboratório Montividiu, Rua Filogonio Faria Leão, Montividiu - GO, 75915-000';
 
 const state = { name: '', need: '', place: '' };
 
