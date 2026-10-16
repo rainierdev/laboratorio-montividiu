@@ -167,6 +167,7 @@ if (cast) initCast(cast);
 
 function initCast(cast) {
   const people = $$('.cast-person', cast);
+  const stage = $('.cast-stage', cast);
   const nameEl = $('.cast-name', cast);
 
   const n = people.length;
@@ -182,8 +183,9 @@ function initCast(cast) {
       img.classList.toggle('is-side', d !== 0);
       img.classList.toggle('is-off', !spot);
       const s = spot || { left: 50, scale: 0.6, z: 1 };
-      img.style.left = s.left + '%';
-      img.style.transform = `translateX(-50%) scale(${s.scale})`;
+      // posição em px a partir do centro (transform puro, sem mexer no left)
+      const dx = ((s.left - 50) / 100) * stage.clientWidth;
+      img.style.transform = `translateX(calc(-50% + ${dx.toFixed(1)}px)) scale(${s.scale})`;
       img.style.zIndex = s.z;
       img.alt = d === 0 ? img.dataset.name : '';
     });
@@ -201,7 +203,6 @@ function initCast(cast) {
   });
 
   // Deslizar o dedo (ou arrastar o mouse) sobre as fotos
-  const stage = $('.cast-stage', cast);
   let startX = null;
   stage.addEventListener('pointerdown', (e) => { if (!e.target.closest('.cast-arrow')) startX = e.clientX; });
   stage.addEventListener('pointerup', (e) => {
@@ -212,6 +213,7 @@ function initCast(cast) {
   });
   stage.addEventListener('pointercancel', () => { startX = null; });
 
+  window.addEventListener('resize', layout);
   layout();
 }
 

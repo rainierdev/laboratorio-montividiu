@@ -163,9 +163,10 @@ legend.q{margin-bottom:10px}
 .cast-title{font-family:var(--font-display);font-weight:900;font-size:clamp(24px,3.4vw,32px);line-height:1.1}
 .cast-stage{position:relative;width:100%;max-width:620px;height:clamp(250px,58vw,380px);touch-action:pan-y;user-select:none}
 .cast-ring{position:absolute;inset:0}
-.cast-person{position:absolute;bottom:0;left:50%;height:100%;width:auto;max-width:none;transform-origin:50% 100%;transform:translateX(-50%);cursor:pointer;filter:drop-shadow(0 14px 18px rgba(35,24,21,.22));transition:left .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s ease,filter .4s ease}
-.cast-person.is-side{filter:drop-shadow(0 10px 14px rgba(35,24,21,.15)) saturate(.85) brightness(.97)}
-.cast-person.is-off{opacity:0;pointer-events:none}
+/* Sem filter/drop-shadow (no Safari do iPhone deixa "fantasmas" retangulares durante a animação)
+   e animando só transform/opacity, que o celular faz na placa de vídeo. */
+.cast-person{position:absolute;bottom:0;left:50%;height:100%;width:auto;max-width:none;transform-origin:50% 100%;transform:translateX(-50%);cursor:pointer;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease,visibility 0s}
+.cast-person.is-off{opacity:0;visibility:hidden;pointer-events:none;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease,visibility 0s .35s}
 .cast-arrow{position:absolute;top:50%;z-index:10;margin-top:-24px;width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--red);box-shadow:0 5px 0 var(--red-dark),0 10px 18px rgba(142,0,0,.25);transition:transform .15s ease,box-shadow .15s ease}
 .cast-prev{left:0}
 .cast-next{right:0}
