@@ -158,60 +158,59 @@ function fadeHeader() {
 window.addEventListener('scroll', fadeHeader, { passive: true });
 fadeHeader();
 
-// Equipe: "troca de personagens". Uma pessoa em destaque com nome e função;
-// troca pelas setas, pelas miniaturas, pelas setas do teclado ou deslizando o dedo.
+// Equipe: carrossel de pessoas recortadas. A do centro fica na frente, maior, com o nome
+// embaixo; setas, toque numa pessoa da lateral, dedo deslizando ou setas do teclado giram a ordem.
 const cast = $('#cast');
 if (cast) initCast(cast);
 
 function initCast(cast) {
-  const card = $('.cast-card', cast);
-  const img = $('.cast-img', cast);
+  const people = $$('.cast-person', cast);
   const nameEl = $('.cast-name', cast);
-  const roleEl = $('.cast-role', cast);
-  const thumbs = $$('.cast-thumb', cast);
-  let index = 0;
 
-  function show(i, dir) {
-    i = (i + thumbs.length) % thumbs.length;
-    if (i === index) return;
-    index = i;
-    const t = thumbs[i];
-    thumbs.forEach((b, k) => { b.classList.toggle('is-active', k === i); b.setAttribute('aria-pressed', String(k === i)); });
-    const swap = () => { img.src = t.dataset.img; nameEl.textContent = t.dataset.name; roleEl.textContent = t.dataset.role; };
-    if (!card.animate) { swap(); return; }
-    // Sai para um lado e entra pelo outro, como trocar de personagem
-    card.animate([{ transform: 'none', opacity: 1 }, { transform: `translateX(${-dir * 60}px) rotate(${-dir * 4}deg)`, opacity: 0 }],
-      { duration: 160, easing: 'ease-in', fill: 'forwards' });
-    // Troca por timer (não depende do fim da animação, que pode não rodar com a aba em segundo plano)
-    setTimeout(() => {
-      swap();
-      card.getAnimations().forEach((a) => a.cancel());
-      card.animate([{ transform: `translateX(${dir * 60}px) rotate(${dir * 4}deg) scale(.96)`, opacity: 0 }, { transform: 'none', opacity: 1 }],
-        { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1.1)', fill: 'forwards' });
-    }, 160);
+  const n = people.length;
+  // posição na tela por distância até o centro: 0 = centro, 1 = direita, -1 = esquerda
+  const SPOTS = { 0: { left: 50, scale: 0.92, z: 3 }, 1: { left: 80, scale: 0.76, z: 2 }, '-1': { left: 20, scale: 0.76, z: 2 } };
+  let active = 0; // começa pela primeira foto (Dra. Cláudia, a principal)
+
+  function layout() {
+    people.forEach((img, i) => {
+      let d = (i - active + n) % n;
+      if (d > n / 2) d -= n;
+      const spot = SPOTS[d];
+      img.classList.toggle('is-side', d !== 0);
+      img.classList.toggle('is-off', !spot);
+      const s = spot || { left: 50, scale: 0.6, z: 1 };
+      img.style.left = s.left + '%';
+      img.style.transform = `translateX(-50%) scale(${s.scale})`;
+      img.style.zIndex = s.z;
+      img.alt = d === 0 ? img.dataset.name : '';
+    });
+    nameEl.textContent = people[active].dataset.name;
+
   }
+  const go = (step) => { active = (active + step + n) % n; layout(); };
 
-  $('.cast-prev', cast).addEventListener('click', () => show(index - 1, -1));
-  $('.cast-next', cast).addEventListener('click', () => show(index + 1, 1));
-  thumbs.forEach((b, k) => b.addEventListener('click', () => show(k, k > index ? 1 : -1)));
+  $('.cast-prev', cast).addEventListener('click', () => go(-1));
+  $('.cast-next', cast).addEventListener('click', () => go(1));
+  people.forEach((img, i) => img.addEventListener('click', () => { if (i !== active) { active = i; layout(); } }));
   cast.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') show(index + 1, 1);
-    if (e.key === 'ArrowLeft') show(index - 1, -1);
+    if (e.key === 'ArrowRight') go(1);
+    if (e.key === 'ArrowLeft') go(-1);
   });
 
-  // Deslizar o dedo (ou arrastar o mouse) sobre a foto
+  // Deslizar o dedo (ou arrastar o mouse) sobre as fotos
+  const stage = $('.cast-stage', cast);
   let startX = null;
-  card.addEventListener('pointerdown', (e) => { startX = e.clientX; });
-  card.addEventListener('pointerup', (e) => {
+  stage.addEventListener('pointerdown', (e) => { if (!e.target.closest('.cast-arrow')) startX = e.clientX; });
+  stage.addEventListener('pointerup', (e) => {
     if (startX === null) return;
     const dx = e.clientX - startX;
     startX = null;
-    if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
   });
-  card.addEventListener('pointercancel', () => { startX = null; });
+  stage.addEventListener('pointercancel', () => { startX = null; });
 
-  // Pré-carrega as fotos para a troca ser instantânea
-  thumbs.forEach((b) => { const p = new Image(); p.src = b.dataset.img; });
+  layout();
 }
 
 // Tour em vídeo: o vídeo avança (e volta) conforme a pessoa rola a página.
