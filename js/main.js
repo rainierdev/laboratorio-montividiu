@@ -173,6 +173,8 @@ function initCast(cast) {
   const n = people.length;
   // posição na tela por distância até o centro: 0 = centro, 1 = direita, -1 = esquerda
   const SPOTS = { 0: { left: 50, scale: 0.92, z: 3 }, 1: { left: 80, scale: 0.76, z: 2 }, '-1': { left: 20, scale: 0.76, z: 2 } };
+  const OFF_LEFT = { left: -15, scale: 0.6, z: 1 };
+  const OFF_RIGHT = { left: 115, scale: 0.6, z: 1 };
   let active = 0; // começa pela primeira foto (Dra. Cláudia, a principal)
 
   function layout() {
@@ -182,7 +184,9 @@ function initCast(cast) {
       const spot = SPOTS[d];
       img.classList.toggle('is-side', d !== 0);
       img.classList.toggle('is-off', !spot);
-      const s = spot || { left: 50, scale: 0.6, z: 1 };
+      // fora de cena: fica além da lateral do lado em que saiu/vai entrar, nunca atrás de quem está no
+      // centro (antes ficava no meio e aparecia "fantasma" pelas partes transparentes da foto do centro)
+      const s = spot || (d < 0 ? OFF_LEFT : OFF_RIGHT);
       // posição em px a partir do centro (transform puro, sem mexer no left)
       const dx = ((s.left - 50) / 100) * stage.clientWidth;
       img.style.transform = `translateX(calc(-50% + ${dx.toFixed(1)}px)) scale(${s.scale})`;
